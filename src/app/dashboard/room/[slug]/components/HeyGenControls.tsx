@@ -95,34 +95,34 @@ export const HeyGenControls = ({
         const avatar = initAvatar(newToken);
         avatarRef.current = avatar;
 
-        avatar.on(StreamingEvents.AVATAR_START_TALKING, (e) => {
+        avatar.on(StreamingEvents.AVATAR_START_TALKING, () => {
           // console.log("Avatar started talking", e);
         });
-        avatar.on(StreamingEvents.AVATAR_STOP_TALKING, (e) => {
+        avatar.on(StreamingEvents.AVATAR_STOP_TALKING, () => {
           // console.log("Avatar stopped talking", e);
         });
         avatar.on(StreamingEvents.STREAM_DISCONNECTED, () => {
           // console.log("Stream disconnected");
         });
-        avatar.on(StreamingEvents.STREAM_READY, (event) => {
+        avatar.on(StreamingEvents.STREAM_READY, () => {
           // console.log(">>>>> Stream ready:", event.detail);
         });
-        avatar.on(StreamingEvents.USER_START, (event) => {
+        avatar.on(StreamingEvents.USER_START, () => {
           // console.log(">>>>> User started talking:", event);
         });
-        avatar.on(StreamingEvents.USER_STOP, (event) => {
+        avatar.on(StreamingEvents.USER_STOP, () => {
           // console.log(">>>>> User stopped talking:", event);
         });
-        avatar.on(StreamingEvents.USER_END_MESSAGE, (event) => {
+        avatar.on(StreamingEvents.USER_END_MESSAGE, () => {
           // console.log(">>>>> User end message:", event);
         });
-        avatar.on(StreamingEvents.USER_TALKING_MESSAGE, (event) => {
+        avatar.on(StreamingEvents.USER_TALKING_MESSAGE, () => {
           // console.log(">>>>> User talking message:", event);
         });
-        avatar.on(StreamingEvents.AVATAR_TALKING_MESSAGE, (event) => {
+        avatar.on(StreamingEvents.AVATAR_TALKING_MESSAGE, () => {
           // console.log(">>>>> Avatar talking message:", event);
         });
-        avatar.on(StreamingEvents.AVATAR_END_MESSAGE, (event) => {
+        avatar.on(StreamingEvents.AVATAR_END_MESSAGE, () => {
           // console.log(">>>>> Avatar end message:", event);
         });
 

@@ -1,7 +1,14 @@
-import { pgTable, serial, text, timestamp, index } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, pgEnum, integer } from "drizzle-orm/pg-core";
+
+export const tagsEnum = pgEnum("tags", [
+  "Full-time",
+  "Part-time",
+  "Internship",
+  "Placement",
+]);
 
 export const roomTable = pgTable("room", {
-  id: text("id").notNull().primaryKey(),
+  id: integer("id").generatedByDefaultAsIdentity().notNull().primaryKey(),
   name: text("name").notNull(),
   description: text("description").notNull(),
   prompt: text("prompt").notNull(),
@@ -11,7 +18,58 @@ export const roomTable = pgTable("room", {
   createdAt: timestamp("created_at", { withTimezone: true })
     .notNull()
     .defaultNow(),
-});
+  userId: integer("user_id")
+    .notNull()
+    .references(() => userTable.id),
+  jobId: integer("job_id")
+    .notNull()
+    .references(() => jobTable.id),
+}).enableRLS();
+
+export const userTable = pgTable("user", {
+  id: integer("id").generatedByDefaultAsIdentity().notNull().primaryKey(),
+  clerkId: text("clerk_id").notNull(),
+  email: text("email").notNull(),
+  username: text("username"),
+  imageUrl: text("image_url"),
+  createdAt: timestamp("created_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+}).enableRLS();
+
+export const jobTable = pgTable("job", {
+  id: integer("id").generatedByDefaultAsIdentity().notNull().primaryKey(),
+  name: text("name").notNull(),
+  description: text("description").notNull(),
+  company: text("company").notNull(),
+  companyDescription: text("company_description").notNull(),
+  location: text("location").notNull(),
+  salary: text("salary").notNull(),
+  requirements: text("requirements").notNull(),
+  responsibilities: text("responsibilities").notNull(),
+  closingDate: timestamp("closing_date", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+  createdAt: timestamp("created_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+  tags: tagsEnum("tags").notNull(),
+}).enableRLS();
+
+export const applicationsTable = pgTable("applications", {
+  id: integer("id").generatedByDefaultAsIdentity().notNull().primaryKey(),
+  userId: integer("user_id")
+    .notNull()
+    .references(() => userTable.id),
+  jobId: integer("job_id")
+    .notNull()
+    .references(() => jobTable.id),
+}).enableRLS();
 
 export type room = typeof roomTable.$inferSelect;
 export type roomInsert = typeof roomTable.$inferInsert;
+export type user = typeof userTable.$inferSelect;
+export type userInsert = typeof userTable.$inferInsert;
+export type job = typeof jobTable.$inferSelect;
+export type jobInsert = typeof jobTable.$inferInsert;
+export type tags = typeof tagsEnum.enumValues;

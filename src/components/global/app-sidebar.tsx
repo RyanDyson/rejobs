@@ -9,7 +9,6 @@ import {
   SidebarFooter,
   SidebarContent,
 } from "@/components/ui/sidebar";
-import Image from "next/image";
 import { NavMain } from "./nav-main";
 import { NavUser } from "./nav-user";
 import Link from "next/link";

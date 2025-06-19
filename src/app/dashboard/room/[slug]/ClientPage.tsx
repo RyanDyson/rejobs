@@ -108,10 +108,6 @@ export function ClientPage({
     );
   };
 
-  const mobileLayout = () => {
-    return <div></div>;
-  };
-
   // console.log(fetchedConfig.Prompt);
 
   return (

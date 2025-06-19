@@ -1,13 +1,5 @@
-import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import {
-  MessageCircle,
-  Mic,
-  Video,
-  User,
-  MoreHorizontal,
-  Play,
-} from "lucide-react";
+import { User, Play } from "lucide-react";
 
 export function DeviceMockup() {
   return (
@@ -81,8 +73,8 @@ export function DeviceMockup() {
               <div className="p-4">
                 <div className="bg-white/5 rounded-lg p-3 border border-white/10">
                   <p className="text-zinc-300 text-sm leading-relaxed">
-                    "Tell me about a time you had to work with a difficult team
-                    member. How did you handle it?"
+                    &ldquo;Tell me about a time you had to work with a difficult
+                    team member. How did you handle it?&rdquo;
                   </p>
                 </div>
                 <div className="flex items-center gap-2 mt-3">
@@ -111,21 +103,6 @@ export function DeviceMockup() {
                   <span className="text-sm">Listening...</span>
                 </div>
               </div>
-            </div>
-            {/* Controls */}
-            <div className="flex items-center justify-center gap-4">
-              <button className="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center hover:bg-red-600 transition-colors shadow-lg">
-                <Mic className="w-5 h-5 text-white" />
-              </button>
-              <button className="w-12 h-12 bg-[#009758] rounded-full flex items-center justify-center hover:bg-[#007A46] transition-colors shadow-lg">
-                <Video className="w-5 h-5 text-white" />
-              </button>
-              <button className="w-12 h-12 bg-zinc-700 rounded-full flex items-center justify-center hover:bg-zinc-600 transition-colors shadow-lg">
-                <MessageCircle className="w-5 h-5 text-white" />
-              </button>
-              <button className="w-12 h-12 bg-zinc-700 rounded-full flex items-center justify-center hover:bg-zinc-600 transition-colors shadow-lg">
-                <MoreHorizontal className="w-5 h-5 text-white" />
-              </button>
             </div>
           </div>
         </div>

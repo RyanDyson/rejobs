@@ -1,7 +1,6 @@
 import { roomTable } from "../db/schema";
 import { z } from "zod";
 import { j, publicProcedure } from "../jstack";
-import { get } from "http";
 
 export const roomRouter = j.router({
   getAll: publicProcedure.query(async ({ c, ctx }) => {
@@ -15,19 +14,24 @@ export const roomRouter = j.router({
   create: publicProcedure
     .input(
       z.object({
-        id: z.string(),
-        name: z.string().min(1),
+        name: z.string(),
         description: z.string(),
         prompt: z.string(),
+        userId: z.number(),
+        jobId: z.number(),
       })
     )
     .mutation(async ({ ctx, c, input }) => {
-      const { id, name, description, prompt } = input;
+      const { name, description, prompt, userId, jobId } = input;
       const { db } = ctx;
 
-      const room = await db
-        .insert(roomTable)
-        .values({ id, name, description, prompt });
+      const room = await db.insert(roomTable).values({
+        name,
+        description,
+        prompt,
+        userId,
+        jobId,
+      });
 
       return c.superjson(room);
     }),

@@ -10,20 +10,15 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import {
-  Brain,
-  Mic,
   CheckCircle,
   ArrowRight,
-  Target,
   Github,
   Heart,
-  Zap,
   Search,
   Send,
   Calendar,
   Workflow,
   Coffee,
-  Crown,
   Check,
 } from "lucide-react";
 import Link from "next/link";
@@ -31,8 +26,12 @@ import { DisplayText } from "@/components/global/display-text";
 import { motion } from "motion/react";
 import { AnimatedOrbs } from "@/components/landing/animated-orbs";
 import { DeviceMockup } from "@/components/landing/device-mockup";
+import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter();
+
   return (
     <main className="scroll-smooth min-w-screen min-h-screen bg-gradient-to-br from-n-950 via-n-900 to-n-950 relative isolate overflow-hidden">
       <AnimatedOrbs />
@@ -114,18 +113,20 @@ export default function Home() {
             </motion.p>
 
             <motion.div
-              className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+              className="flex flex-col sm:flex-row gap-4 justify-center items-center cursor-pointer"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.5 }}
             >
-              <Button
-                size="lg"
-                className="bg-[#009758] hover:bg-[#007A46] text-white px-8 py-6 text-xl shadow-lg hover:shadow-[#009758]/20 transition-all duration-300"
+              <HoverBorderGradient
+                containerClassName="rounded-full cursor-pointer"
+                as="button"
+                className="cursor-pointer flex items-center justify-center px-8 py-3"
+                onClick={() => router.push("/sign-in")}
               >
-                <DisplayText>Start for free</DisplayText>
+                <DisplayText className="text-lg">Start for free</DisplayText>
                 <ArrowRight className="ml-2 w-5 h-5" />
-              </Button>
+              </HoverBorderGradient>
             </motion.div>
           </motion.div>
         </div>

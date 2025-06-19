@@ -15,13 +15,16 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Send } from "lucide-react";
 import { useCallback, useEffect } from "react";
-import { useTextChat } from "./AvatarLogic/useTextChat";
+import { useTextChat } from "@/hooks/avatar-utils/use-text-chat";
 import { usePrevious } from "ahooks";
-import { useConversationState } from "./AvatarLogic/useConversationState";
+import { useConversationState } from "@/hooks/avatar-utils/use-conversation-state";
 import { RecordingButton } from "./RecordingButton";
 import type StreamingAvatar from "@heygen/streaming-avatar";
 import { useState } from "react";
-import { useAudioRecording, <RecordingS></RecordingS> } from "@/hooks/avatar-utils/use-audio-recording";
+import {
+  useAudioRecording,
+  RecordingState,
+} from "@/hooks/avatar-utils/use-audio-recording";
 import {
   Tooltip,
   TooltipTrigger,

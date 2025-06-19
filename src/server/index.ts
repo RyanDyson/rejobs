@@ -1,5 +1,6 @@
 import { j } from "./jstack";
 import { roomRouter } from "./routers/room-router";
+import { userRouter } from "./routers/user-router";
 
 /**
  * This is your base API.
@@ -19,6 +20,7 @@ const api = j
  */
 const appRouter = j.mergeRouters(api, {
   room: roomRouter,
+  user: userRouter,
 });
 
 export type AppRouter = typeof appRouter;

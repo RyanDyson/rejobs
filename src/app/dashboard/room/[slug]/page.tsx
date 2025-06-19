@@ -1,13 +1,8 @@
-import { formatDate, formatStatus } from "@/lib/format-helper";
+import { formatDate } from "@/lib/format-helper";
 import { type room } from "@/server/db/schema";
 import { ClientPage } from "./ClientPage";
 import { Suspense } from "react";
 import { LoadingIcon } from "@/components/global/loading-icon";
-
-type apiResponse = {
-  data: room;
-  meta: object;
-};
 
 const LoadingSkeleton = () => {
   return (
@@ -18,8 +13,8 @@ const LoadingSkeleton = () => {
 };
 
 // Component to fetch and display room data
-async function RoomData({ roomID }: { roomID: string }) {
-  let data: room = {} as room;
+async function RoomData({}: { roomID: string }) {
+  const data: room = {} as room;
   try {
     // const auth = "Bearer " + (process.env.CITYU_AUTHORIZATION ?? "");
     // const res = await fetch(
@@ -73,7 +68,7 @@ async function RoomData({ roomID }: { roomID: string }) {
     <ClientPage
       roomDetails={roomDetails}
       courseDetails={courseDetails}
-      roomID={data.id}
+      roomID={`${data.id}`}
       apiRes={data}
     />
   );

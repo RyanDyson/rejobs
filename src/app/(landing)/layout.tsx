@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { Providers } from "../components/global/providers";
+import { Providers } from "@/components/global/providers";
 import { Navbar } from "./components/Navbar";
 
-import "./globals.css";
+import "../globals.css";
 
 export const metadata: Metadata = {
   title: "JStack App",
@@ -16,7 +16,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className="dark antialiased">
         <Providers>
           <Navbar />

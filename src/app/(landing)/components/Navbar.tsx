@@ -5,15 +5,19 @@ import { DisplayText } from "@/components/global/display-text";
 import { useState } from "react";
 import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useUser } from "@clerk/nextjs";
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { isSignedIn } = useUser();
 
   const heroNav = [
     { label: "Features", href: "/#features" },
+    { label: "Product", href: "/#product" },
     { label: "Pricing", href: "/#pricing" },
-    { label: "About", href: "/#about" },
   ];
+
+  console.log("isSignedIn", isSignedIn);
 
   return (
     <div className="fixed z-40 flex h-min w-screen justify-center p-4">
@@ -29,14 +33,26 @@ export const Navbar = () => {
             </Link>
           ))}
         </div>
-        <Link
-          href="/sign-in"
-          className="w-full ps-6 m-0 hidden h-full space-x-2 md:flex"
-        >
-          <Button className="hidden md:block rounded-full cursor-pointer bg-primary text-white hover:bg-primary/80 active:bg-primary/90 transition-colors duration-200">
-            Sign In
-          </Button>
-        </Link>
+        {isSignedIn ? (
+          <Link
+            href="/dashboard"
+            className="w-full ps-6 m-0 hidden h-full space-x-2 md:flex"
+          >
+            <Button className="hidden md:block rounded-full cursor-pointer bg-primary text-white hover:bg-primary/80 active:bg-primary/90 transition-colors duration-200">
+              Dashboard
+            </Button>
+          </Link>
+        ) : (
+          <Link
+            href="/sign-in"
+            className="w-full ps-6 m-0 hidden h-full space-x-2 md:flex"
+          >
+            <Button className="hidden md:block rounded-full cursor-pointer bg-primary text-white hover:bg-primary/80 active:bg-primary/90 transition-colors duration-200">
+              Sign In
+            </Button>
+          </Link>
+        )}
+
         <div className="ms-0 flex w-full flex-col md:hidden">
           <div className="flex w-full items-center justify-between">
             <DisplayText className="flex text-3xl relative italic font-bold tracking-tight ">
@@ -69,9 +85,15 @@ export const Navbar = () => {
                 </Link>
               ))}
             </div>
-            <Link href="/sign-in" className="w-full">
-              <Button>Sign In</Button>
-            </Link>
+            {isSignedIn ? (
+              <Link href="/dashboard" className="w-full">
+                <Button>Dashboard</Button>
+              </Link>
+            ) : (
+              <Link href="/sign-in" className="w-full">
+                <Button>Sign In</Button>
+              </Link>
+            )}
           </div>
         </div>
       </div>

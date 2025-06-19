@@ -20,7 +20,7 @@ const LoadingSkeleton = () => {
 
 // Component to fetch and display room data
 async function RoomData() {
-  let data: room[] = [];
+  const data: room[] = [];
 
   try {
     // const auth = "Bearer " + (process.env.CITYU_AUTHORIZATION ?? "");
@@ -41,7 +41,8 @@ async function RoomData() {
     console.error("Error fetching rooms:", error);
     return (
       <div>
-        Error fetching rooms. Make sure you are connected to CityU's network.
+        Error fetching rooms. Make sure you are connected to CityU&apos;s
+        network.
       </div>
     );
   }
