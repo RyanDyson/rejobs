@@ -19,25 +19,9 @@ interface BreadcrumbSegment {
 }
 
 const BreadCrumbGenerator = (pathname: string): BreadcrumbSegment[] => {
-  if (pathname === "/") {
-    return [
-      {
-        label: "Dashboard",
-        href: "/",
-        isLast: true,
-      },
-    ];
-  }
-
   const segments = pathname.split("/").filter(Boolean);
 
-  const breadcrumbs: BreadcrumbSegment[] = [
-    {
-      label: "Dashboard",
-      href: "/",
-      isLast: false,
-    },
-  ];
+  const breadcrumbs: BreadcrumbSegment[] = [];
 
   for (let i = 0; i < segments.length; i++) {
     const segment = segments[i];

@@ -2,6 +2,7 @@ import { SectionCards } from "./components/SectionCards";
 import { type room } from "@/server/db/schema";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Suspense } from "react";
+import { client } from "@/lib/client";
 
 const LoadingSkeleton = () => {
   return (
@@ -23,20 +24,16 @@ async function RoomData() {
   const data: room[] = [];
 
   try {
-    // const auth = "Bearer " + (process.env.CITYU_AUTHORIZATION ?? "");
-    // const res = await fetch(
-    //   "https://vbcms.its.cityu.edu.hk/api/rooms?filters[ClassStatus][$eq]=Start&fields[0]=RoomID&fields[1]=ClassStatus&fields[2]=createdAt&fields[3]=updatedAt&populate[course][fields][0]=CourseName",
-    //   {
-    //     method: "GET",
-    //     headers: {
-    //       Authorization: auth,
-    //     },
-    //   }
-    // );
-    // if (!res.ok) {
-    //   throw new Error("Failed to fetch rooms");
-    // }
-    // data = await res.json();
+    const temp = await client.user.getUser.$get();
+    const user = await temp.json();
+    if (!user || !user[0]?.id) {
+      console.log("User not found or user ID is missing");
+    }
+    const res = await client.room.getAllByUserId.$get({
+      userId: user[0]?.id || 0,
+    });
+    const rooms = await res.json();
+    console.log(rooms);
   } catch (error) {
     console.error("Error fetching rooms:", error);
     return (

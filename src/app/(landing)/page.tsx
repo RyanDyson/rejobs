@@ -28,9 +28,11 @@ import { AnimatedOrbs } from "@/components/landing/animated-orbs";
 import { DeviceMockup } from "@/components/landing/device-mockup";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 import { useRouter } from "next/navigation";
+import { useUser } from "@clerk/nextjs";
 
 export default function Home() {
   const router = useRouter();
+  const { isSignedIn } = useUser();
 
   return (
     <main className="scroll-smooth min-w-screen min-h-screen bg-gradient-to-br from-n-950 via-n-900 to-n-950 relative isolate overflow-hidden">
@@ -95,7 +97,7 @@ export default function Home() {
                 <span className="text-neutral-50 z-20">re:</span>
                 <span className="leading-loose relative flex items-center justify-center -ml-6 not-italic bg-gradient-to-r from-emerald-400 to-emerald-600 bg-clip-text text-transparent">
                   j&nbsp;&nbsp;
-                  <span className="z-20 text-white text-[200px] absolute -top-2 right-16 skew-6 inline-flex items-center justify-center">
+                  <span className="z-20 text-white text-[200px] h-64 absolute top-14 right-16 skew-6 inline-flex items-center justify-center">
                     *
                   </span>
                   bs
@@ -113,7 +115,7 @@ export default function Home() {
             </motion.p>
 
             <motion.div
-              className="flex flex-col sm:flex-row gap-4 justify-center items-center cursor-pointer"
+              className="flex flex-col sm:flex-row gap-4 justify-center items-center"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.5 }}
@@ -121,11 +123,30 @@ export default function Home() {
               <HoverBorderGradient
                 containerClassName="rounded-full cursor-pointer"
                 as="button"
-                className="cursor-pointer flex items-center justify-center px-8 py-3"
-                onClick={() => router.push("/sign-in")}
+                className="px-0 py-0 w-full h-full cursor-pointer flex items-center justify-center "
+                onClick={() => {
+                  if (isSignedIn) {
+                    router.push("/dashboard");
+                  } else {
+                    router.push("/sign-in");
+                  }
+                }}
               >
-                <DisplayText className="text-lg">Start for free</DisplayText>
-                <ArrowRight className="ml-2 w-5 h-5" />
+                {isSignedIn ? (
+                  <div className="px-8 py-3 flex items-center justify-center">
+                    <DisplayText className="text-lg">
+                      Go To Dashboard
+                    </DisplayText>
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </div>
+                ) : (
+                  <div className="px-8 py-3 flex items-center justify-center">
+                    <DisplayText className="text-lg">
+                      Start for free
+                    </DisplayText>
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </div>
+                )}
               </HoverBorderGradient>
             </motion.div>
           </motion.div>

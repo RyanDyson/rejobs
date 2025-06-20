@@ -12,11 +12,11 @@ export default function Page() {
     <SignIn.Root>
       <div className="flex h-screen w-screen flex-col items-center justify-center bg-stone-950">
         <SignIn.Step name="start">
-          <div className="flex min-w-96 flex-col justify-between space-y-1 divide-y-2 divide-stone-700 rounded-md border-stone-700 bg-stone-950/50 text-stone-50 backdrop-blur-lg">
+          <div className="flex min-w-96 flex-col justify-between space-y-1 rounded-md border-stone-700 bg-stone-950/50 text-stone-50 backdrop-blur-lg">
             <div>
               <div>
                 <DisplayText className="text-3xl">
-                  Sign in to your account
+                  Sign in to your account.
                 </DisplayText>
               </div>
             </div>

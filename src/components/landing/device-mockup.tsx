@@ -112,7 +112,7 @@ export function DeviceMockup() {
       <div className="absolute -top-4 -right-4 bg-gradient-to-r from-green-500 to-emerald-500 text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg">
         95% Success Rate
       </div>
-      <div className="absolute -bottom-2 -left-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg">
+      <div className="absolute -bottom-2 -left-4 bg-background border-primary border text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg">
         Real-time Feedback
       </div>
     </div>

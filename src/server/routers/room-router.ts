@@ -1,15 +1,22 @@
 import { roomTable } from "../db/schema";
 import { z } from "zod";
 import { j, publicProcedure } from "../jstack";
+import { eq } from "drizzle-orm";
 
 export const roomRouter = j.router({
-  getAll: publicProcedure.query(async ({ c, ctx }) => {
-    const { db } = ctx;
+  getAllByUserId: publicProcedure
+    .input(z.object({ userId: z.number() }))
+    .query(async ({ input, c, ctx }) => {
+      const { userId } = input;
+      const { db } = ctx;
 
-    const rooms = await db.select().from(roomTable);
+      const rooms = await db
+        .select()
+        .from(roomTable)
+        .where(eq(roomTable.userId, userId));
 
-    return c.superjson(rooms);
-  }),
+      return c.superjson(rooms);
+    }),
 
   create: publicProcedure
     .input(
