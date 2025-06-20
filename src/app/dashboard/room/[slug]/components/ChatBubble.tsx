@@ -1,4 +1,3 @@
-import ReactMarkdown from "react-markdown";
 import { useState } from "react";
 import { ChevronDown, ChevronRight } from "lucide-react";
 
@@ -53,33 +52,14 @@ export const ChatBubble = ({ chat, prompt }: ChatBubbleProps) => {
 
               {isPromptExpanded && (
                 <div className="mt-2 pt-2 border-t border-gray-200">
-                  <ReactMarkdown
-                    className="text-xs text-gray-600 text-left"
-                    components={{
-                      p: ({ ...props }) => (
-                        <p
-                          className="whitespace-pre-wrap mb-2 last:mb-0"
-                          {...props}
-                        />
-                      ),
-                    }}
-                  >
+                  <div className="text-xs text-gray-600 text-left">
                     {displayText}
-                  </ReactMarkdown>
+                  </div>
                 </div>
               )}
             </div>
           ) : (
-            <ReactMarkdown
-              className="text-xs text-gray-500 text-center"
-              components={{
-                p: ({ ...props }) => (
-                  <p className="whitespace-pre-wrap" {...props} />
-                ),
-              }}
-            >
-              {text}
-            </ReactMarkdown>
+            <div className="text-xs text-gray-500 text-center">{text}</div>
           )}
         </div>
       </div>
@@ -101,16 +81,7 @@ export const ChatBubble = ({ chat, prompt }: ChatBubbleProps) => {
           role === "CLIENT" ? "bg-pink-100" : "bg-gray-100"
         }`}
       >
-        <ReactMarkdown
-          className="text-sm text-gray-800"
-          components={{
-            p: ({ ...props }) => (
-              <p className="whitespace-pre-wrap" {...props} />
-            ),
-          }}
-        >
-          {text}
-        </ReactMarkdown>
+        <div className="text-sm text-gray-800">{text}</div>
       </div>
       <span className="text-xs text-gray-400 mt-1">{timestamp}</span>
     </div>
