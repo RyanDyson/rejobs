@@ -5,8 +5,8 @@ import { Navbar } from "./components/Navbar";
 import "../globals.css";
 
 export const metadata: Metadata = {
-  title: "JStack App",
-  description: "Created using JStack",
+  title: "re:j∗bs",
+  description: "Defeat the allegations. Get a j∗b.",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 

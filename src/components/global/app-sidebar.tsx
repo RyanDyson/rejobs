@@ -14,35 +14,25 @@ import Link from "next/link";
 import { DisplayText } from "./display-text";
 import { House, Briefcase, Receipt } from "lucide-react";
 import { UserButton } from "@clerk/nextjs";
-import { useQuery } from "@tanstack/react-query";
-import { client } from "@/lib/client";
-import { Skeleton } from "../ui/skeleton";
+import { type user } from "@/server/db/schema";
 
-type AppSidebarProps = React.ComponentProps<typeof Sidebar>;
+type AppSidebarProps = { user: user } & React.ComponentProps<typeof Sidebar>;
 
-export function AppSidebar({ ...props }: AppSidebarProps) {
-  const { data, isLoading } = useQuery({
-    queryKey: ["user"],
-    queryFn: async () => {
-      const res = await client.user.getUser.$get();
-      return await res.json();
-    },
-  });
-
+export function AppSidebar({ user, ...props }: AppSidebarProps) {
   const navItems = [
     {
       title: "Rooms",
-      url: "/rooms",
+      url: "/",
       icon: House,
     },
     {
-      title: "Jobs",
-      url: "/jobs",
+      title: "Jobs (Coming Soon)",
+      url: "/",
       icon: Briefcase,
     },
     {
-      title: "Applications",
-      url: "/applications",
+      title: "Applications (Coming Soon)",
+      url: "/",
       icon: Receipt,
     },
   ];
@@ -75,19 +65,13 @@ export function AppSidebar({ ...props }: AppSidebarProps) {
       </SidebarContent>
 
       <SidebarFooter>
-        <SidebarMenu className="p-2">
+        <SidebarMenu className="p-2 flex gap-4 flex-row">
           <UserButton />
-          <div className="text-sm text-stone-300">
-            {isLoading ? (
-              <Skeleton className="w-32 h-4" />
-            ) : (
-              <DisplayText className="text-sm">
-                <span>
-                  {data?.[0]?.username || "No username"}
-                  {data?.[0]?.email || "No email"}
-                </span>
-              </DisplayText>
-            )}
+          <div className="text-sm text-stone-300 ">
+            <DisplayText className="w-full h-full justify-between items-center text-sm font-semibold flex gap-x-2">
+              <span>{user?.username || "No username"}</span>
+              <span>{user?.email || "No email"}</span>
+            </DisplayText>
           </div>
         </SidebarMenu>
       </SidebarFooter>

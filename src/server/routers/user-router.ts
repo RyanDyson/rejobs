@@ -1,18 +1,16 @@
-import { j, publicProcedure } from "../jstack";
+import { j, publicProcedure, protectedProcedure } from "../jstack";
 import { currentUser, auth } from "@clerk/nextjs/server";
 import { userTable } from "../db/schema";
 import { eq } from "drizzle-orm";
+import { z } from "zod";
 
 export const userRouter = j.router({
   newUser: publicProcedure.mutation(async ({ c, ctx }) => {
     const { db } = ctx;
-    const { userId: clerkId } = await auth();
-
-    if (!clerkId) {
-      throw new Error("User not authenticated");
-    }
 
     const user = await currentUser();
+    console.log("Current user:", user);
+
     if (!user) {
       throw new Error("User not found");
     }
@@ -24,34 +22,42 @@ export const userRouter = j.router({
     const dbUser = await db
       .select()
       .from(userTable)
-      .where(eq(userTable.clerkId, clerkId));
+      .where(eq(userTable.clerkId, user.id));
 
-    if (!dbUser) {
+    // console.log("Database user:", dbUser);
+
+    if (dbUser.length === 0) {
       const newUser = await db.insert(userTable).values({
-        clerkId,
+        clerkId: user.id,
         email: user.primaryEmailAddress.emailAddress,
-        username: user.username || null,
+        username: user.fullName || null,
         imageUrl: user.imageUrl || null,
       });
+      // console.log("New user created:", newUser);
 
       return c.superjson(newUser);
     }
 
     return c.superjson(dbUser);
   }),
-  getUser: publicProcedure.query(async ({ c, ctx }) => {
-    const { db } = ctx;
-    const { userId: clerkId } = await auth();
 
-    if (!clerkId) {
-      throw new Error("User not authenticated");
-    }
+  completeUser: protectedProcedure
+    .input(z.object({ username: z.string().min(1) }))
+    .mutation(async ({ c, ctx }) => {
+      const { db, user } = ctx;
+    }),
 
-    const user = await db
-      .select()
-      .from(userTable)
-      .where(eq(userTable.clerkId, clerkId));
+  getDbUser: publicProcedure
+    .input(z.object({ clerkId: z.string() }))
+    .get(async ({ c, ctx, input }) => {
+      const { db } = ctx;
+      const { clerkId } = input;
 
-    return c.superjson(user);
-  }),
+      const dbUser = await db
+        .select()
+        .from(userTable)
+        .where(eq(userTable.clerkId, clerkId));
+
+      return c.superjson(dbUser[0]);
+    }),
 });

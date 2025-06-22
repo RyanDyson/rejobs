@@ -32,7 +32,7 @@ export default function Page() {
               <div className="flex w-full items-center justify-between space-x-2">
                 <p>Dont have an account?</p>
                 <Link href={"/sign-up"}>
-                  <Button className="rounded-full px-4 py-2 font-bold">
+                  <Button className="rounded-full px-4 py-2 font-bold cursor-pointer">
                     Sign Up
                   </Button>
                 </Link>

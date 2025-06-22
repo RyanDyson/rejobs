@@ -2,6 +2,7 @@ import { SectionCards } from "./components/SectionCards";
 import { type room } from "@/server/db/schema";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Suspense } from "react";
+import { currentUser } from "@clerk/nextjs/server";
 import { client } from "@/lib/client";
 
 const LoadingSkeleton = () => {
@@ -21,19 +22,18 @@ const LoadingSkeleton = () => {
 
 // Component to fetch and display room data
 async function RoomData() {
-  const data: room[] = [];
+  const clerkUser = await currentUser();
+  let rooms: room[] = [];
 
   try {
-    const temp = await client.user.getUser.$get();
-    const user = await temp.json();
-    if (!user || !user[0]?.id) {
-      console.log("User not found or user ID is missing");
-    }
-    const res = await client.room.getAllByUserId.$get({
-      userId: user[0]?.id || 0,
+    const temp = await client.user.getDbUser.$get({
+      clerkId: clerkUser?.id || "",
     });
-    const rooms = await res.json();
-    console.log(rooms);
+    const user = await temp.json();
+    const res = await client.room.getAllByUserId.$get({
+      userId: user?.id || 0,
+    });
+    rooms = await res.json();
   } catch (error) {
     console.error("Error fetching rooms:", error);
     return (
@@ -44,7 +44,7 @@ async function RoomData() {
     );
   }
 
-  return <SectionCards data={data} />;
+  return <SectionCards data={rooms} />;
 }
 
 export default function Page() {

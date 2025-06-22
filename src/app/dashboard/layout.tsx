@@ -1,14 +1,17 @@
+import "../globals.css";
+
 import type { Metadata } from "next";
 import { AppSidebar } from "@/components/global/app-sidebar";
 import { SiteHeader } from "@/components/global/site-header";
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import { Toaster } from "sonner";
 import { Providers } from "@/components/global/providers";
-
-import "../globals.css";
+import { currentUser } from "@clerk/nextjs/server";
+import { client } from "@/lib/client";
+import { user } from "@/server/db/schema";
 
 export const metadata: Metadata = {
-  title: "re:Interview - Dashboard",
+  title: "re:j - Dashboard",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
@@ -17,12 +20,18 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const clerkUser = await currentUser();
+  const res = await client.user.getDbUser.$get({
+    clerkId: clerkUser?.id || "",
+  });
+  const user = await res.json();
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="dark antialiased">
         <Providers>
           <SidebarProvider>
-            <AppSidebar />
+            <AppSidebar user={user || ({} as user)} />
             <SidebarInset className="max-h-full flex flex-col">
               <SiteHeader />
               {children}

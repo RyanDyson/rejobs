@@ -17,7 +17,7 @@ export const Navbar = () => {
     { label: "Pricing", href: "/#pricing" },
   ];
 
-  console.log("isSignedIn", isSignedIn);
+  // console.log("isSignedIn", isSignedIn);
 
   return (
     <div className="fixed z-40 flex h-min w-screen justify-center p-4">

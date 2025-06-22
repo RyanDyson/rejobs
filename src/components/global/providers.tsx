@@ -8,6 +8,7 @@ import {
 import { HTTPException } from "hono/http-exception";
 import { PropsWithChildren, useState } from "react";
 import { ClerkProvider } from "@clerk/nextjs";
+import { dark } from "@clerk/themes";
 
 export const Providers = ({ children }: PropsWithChildren) => {
   const [queryClient] = useState(
@@ -25,7 +26,7 @@ export const Providers = ({ children }: PropsWithChildren) => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ClerkProvider>{children}</ClerkProvider>
+      <ClerkProvider appearance={{ baseTheme: dark }}>{children}</ClerkProvider>
     </QueryClientProvider>
   );
 };
