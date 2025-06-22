@@ -1,24 +1,11 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import {
-  MessageSquare,
-  Sparkles,
-  Users,
-  TrendingUp,
-  Plus,
-  ArrowRight,
-} from "lucide-react";
+import { MessageSquare, Sparkles, Users, TrendingUp } from "lucide-react";
 import { DisplayText } from "@/components/global/display-text";
 import { motion } from "framer-motion";
-import { type Dispatch, type SetStateAction } from "react";
 
-interface EmptyRoomsStateProps {
-  setShowDialog: Dispatch<SetStateAction<boolean>>;
-}
-
-export function EmptyRoomsState({ setShowDialog }: EmptyRoomsStateProps) {
+export function EmptyRoomsState() {
   const features = [
     {
       icon: MessageSquare,

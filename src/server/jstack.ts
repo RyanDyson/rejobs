@@ -30,6 +30,7 @@ const databaseMiddleware = j.middleware(async ({ c, next }) => {
  * Protects dashboard routes and validates user authentication
  */
 const authMiddleware = j.middleware(async ({ c, next }) => {
+  //auth middleware broken, currentUser() is called before clerk middleware is init
   const user = await currentUser();
 
   // Check if the current route is a protected route (dashboard)

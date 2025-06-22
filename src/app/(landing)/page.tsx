@@ -27,7 +27,7 @@ import { motion } from "motion/react";
 import { AnimatedOrbs } from "@/components/landing/animated-orbs";
 import { DeviceMockup } from "@/components/landing/device-mockup";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
 
 export default function Home() {
@@ -91,13 +91,13 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
-              className="flex justify-center text-7xl sm:text-8xl md:text-9xl font-bold tracking-tight mb-4"
+              className="flex justify-center mb-4"
             >
-              <DisplayText className="flex items-center h-full relative italic text-7xl sm:text-8xl md:text-9xl font-bold tracking-tight mb-6 ">
+              <DisplayText className="flex items-center h-full relative italic text-7xl md:text-9xl font-bold tracking-tight mb-6 ">
                 <span className="text-neutral-50 z-20">re:</span>
-                <span className="leading-loose relative flex items-center justify-center -ml-6 not-italic bg-gradient-to-r from-emerald-400 to-emerald-600 bg-clip-text text-transparent">
+                <span className="leading-loose relative flex items-center justify-center -ml-4 md:-ml-6 not-italic bg-gradient-to-r from-emerald-400 to-emerald-600 bg-clip-text text-transparent">
                   j&nbsp;&nbsp;
-                  <span className="z-20 text-white text-[200px] h-64 absolute top-14 right-16 skew-6 inline-flex items-center justify-center">
+                  <span className="z-20 text-white text-[125px] md:text-[200px] h-32 md:h-64 absolute top-10 right-8 md:top-14 md:right-16 skew-6 inline-flex items-center justify-center">
                     *
                   </span>
                   bs
@@ -106,7 +106,7 @@ export default function Home() {
             </motion.div>
 
             <motion.p
-              className="text-xl md:text-2xl text-n-300 mb-4 leading-relaxed"
+              className="text-lg md:text-2xl text-n-300 mb-4 p-4 leading-relaxed"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
@@ -352,7 +352,10 @@ export default function Home() {
                         </li>
                       ))}
                     </ul>
-                    <Button className="w-full bg-[#009758] hover:bg-[#007A46] text-white">
+                    <Button
+                      onClick={() => redirect("/sign-in")}
+                      className="w-full bg-[#009758] hover:bg-[#007A46] text-white"
+                    >
                       <DisplayText className="text-lg">
                         Get Started Free
                       </DisplayText>
@@ -432,16 +435,10 @@ export default function Home() {
 
             <div className="flex items-center gap-6">
               <Link
-                href="#"
+                href="https://github.com/RyanDyson/rejobs"
                 className="text-n-400 hover:text-[#009758] transition-colors"
               >
                 <Github className="w-5 h-5" />
-              </Link>
-              <Link
-                href="#"
-                className="text-n-400 hover:text-[#009758] transition-colors"
-              >
-                <Heart className="w-5 h-5" />
               </Link>
             </div>
           </div>

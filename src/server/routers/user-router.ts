@@ -1,5 +1,5 @@
-import { j, publicProcedure, protectedProcedure } from "../jstack";
-import { currentUser, auth } from "@clerk/nextjs/server";
+import { j, publicProcedure } from "../jstack";
+import { currentUser } from "@clerk/nextjs/server";
 import { userTable } from "../db/schema";
 import { eq } from "drizzle-orm";
 import { z } from "zod";
@@ -40,12 +40,6 @@ export const userRouter = j.router({
 
     return c.superjson(dbUser);
   }),
-
-  completeUser: protectedProcedure
-    .input(z.object({ username: z.string().min(1) }))
-    .mutation(async ({ c, ctx }) => {
-      const { db, user } = ctx;
-    }),
 
   getDbUser: publicProcedure
     .input(z.object({ clerkId: z.string() }))

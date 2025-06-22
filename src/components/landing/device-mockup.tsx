@@ -1,5 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { User, Play } from "lucide-react";
+import Image from "next/image";
+import Katya from "@/../public/previews/preview_target-katya.jpg";
 
 export function DeviceMockup() {
   return (
@@ -20,7 +22,6 @@ export function DeviceMockup() {
 
           {/* App Content */}
           <div className="px-4 pb-6">
-            {" "}
             {/* Header */}
             <div className="flex items-center justify-between mb-6 px-2">
               <div>
@@ -39,8 +40,8 @@ export function DeviceMockup() {
             <div className="relative bg-gradient-to-br from-[#009758]/10 to-[#009758]/5 rounded-xl mb-4 border border-[#009758]/20 overflow-hidden">
               {/* Video Area */}
               <div className="relative aspect-video bg-zinc-900 rounded-t-xl overflow-hidden">
-                <img
-                  src="/previews/preview_target-katya.jpg"
+                <Image
+                  src={Katya}
                   alt="AI Agent Katya"
                   className="w-full h-full object-cover"
                 />
@@ -90,7 +91,7 @@ export function DeviceMockup() {
                   </div>
                 </div>
               </div>
-            </div>{" "}
+            </div>
             {/* User Response Area */}
             <div className="bg-zinc-800/50 rounded-xl p-4 mb-4">
               <div className="flex items-center gap-3 mb-2">

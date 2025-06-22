@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { RoomCard } from "./RoomCard";
 import { CreateRoomDialog } from "./CreateRoomDialog";
 import { EmptyRoomsState } from "./EmptyRoomState";
@@ -19,8 +18,6 @@ type SectionCardsProps = {
 };
 
 export function SectionCards({ data, onCreateRoom }: SectionCardsProps) {
-  const [showCreateDialog, setShowCreateDialog] = useState(false);
-
   const handleCreateRoom = async (roomData: {
     name: string;
     description: string;
@@ -37,7 +34,7 @@ export function SectionCards({ data, onCreateRoom }: SectionCardsProps) {
   if (data.length === 0) {
     return (
       <div className="h-full w-full flex flex-col items-center justify-center">
-        <EmptyRoomsState setShowDialog={setShowCreateDialog} />
+        <EmptyRoomsState />
         <CreateRoomDialog onCreateRoom={handleCreateRoom} />
       </div>
     );
