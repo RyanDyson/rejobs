@@ -11,7 +11,7 @@ import { client } from "@/lib/client";
 import { user } from "@/server/db/schema";
 
 export const metadata: Metadata = {
-  title: "re:j - Dashboard",
+  title: "re:j∗bs - Dashboard",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 

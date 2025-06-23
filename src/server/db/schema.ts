@@ -7,6 +7,8 @@ export const tagsEnum = pgEnum("tags", [
   "Placement",
 ]);
 
+export const roleEnum = pgEnum("role", ["user", "assistant"]);
+
 export const roomTable = pgTable("room", {
   id: integer("id").generatedByDefaultAsIdentity().notNull().primaryKey(),
   name: text("name").notNull(),
@@ -25,6 +27,38 @@ export const roomTable = pgTable("room", {
     .notNull()
     .references(() => jobTable.id),
 }).enableRLS();
+
+export const roomSessionTable = pgTable("room_session", {
+  id: integer("id").generatedByDefaultAsIdentity().notNull().primaryKey(),
+  roomId: integer("room_id")
+    .notNull()
+    .references(() => roomTable.id),
+  userId: integer("user_id")
+    .notNull()
+    .references(() => userTable.id),
+  startedAt: timestamp("started_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+  endedAt: timestamp("ended_at", { withTimezone: true }),
+  createdAt: timestamp("created_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+});
+
+export const roomMessageTable = pgTable("room_message", {
+  id: integer("id").generatedByDefaultAsIdentity().notNull().primaryKey(),
+  roomId: integer("room_id")
+    .notNull()
+    .references(() => roomTable.id),
+  userId: integer("user_id")
+    .notNull()
+    .references(() => userTable.id),
+  content: text("content").notNull(),
+  role: roleEnum("role").notNull().default("user"),
+  createdAt: timestamp("created_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+});
 
 export const userTable = pgTable("user", {
   id: integer("id").generatedByDefaultAsIdentity().notNull().primaryKey(),

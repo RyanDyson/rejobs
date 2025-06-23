@@ -1,6 +1,7 @@
 "use client";
 
-import { Icon } from "lucide-react";
+import { LucideIcon } from "lucide-react";
+import Link from "next/link";
 
 import {
   SidebarGroup,
@@ -16,7 +17,7 @@ export function NavMain({
   items: {
     title: string;
     url: string;
-    icon?: typeof Icon;
+    icon?: LucideIcon;
   }[];
 }) {
   return (
@@ -25,8 +26,14 @@ export function NavMain({
         <SidebarMenu>
           {items.map((item) => (
             <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton tooltip={item.title}>
-                <span>{item.title}</span>
+              <SidebarMenuButton
+                tooltip={item.title}
+                className="cursor-pointer data-[slot=sidebar-menu-button]:!p-1.5"
+              >
+                <Link href={item.url} className="flex items-center gap-2">
+                  {item.icon && <item.icon className="h-4 w-4" />}
+                  <span>{item.title}</span>
+                </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
           ))}

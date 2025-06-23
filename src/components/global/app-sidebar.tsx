@@ -22,17 +22,17 @@ export function AppSidebar({ user, ...props }: AppSidebarProps) {
   const navItems = [
     {
       title: "Rooms",
-      url: "/",
+      url: "./dashboard/room",
       icon: House,
     },
     {
       title: "Jobs (Coming Soon)",
-      url: "/",
+      url: "./",
       icon: Briefcase,
     },
     {
       title: "Applications (Coming Soon)",
-      url: "/",
+      url: "./",
       icon: Receipt,
     },
   ];
@@ -46,7 +46,7 @@ export function AppSidebar({ user, ...props }: AppSidebarProps) {
               asChild
               className="data-[slot=sidebar-menu-button]:!p-1.5"
             >
-              <Link href="/" className="flex items-center gap-2">
+              <Link href="/dashboard" className="flex items-center gap-2">
                 <DisplayText className="flex text-xl relative italic font-bold tracking-tight ">
                   <span className="text-neutral-50 z-20">re:</span>
                   <span className="not-italic bg-gradient-to-r from-emerald-400 to-emerald-600 bg-clip-text text-transparent">
@@ -67,12 +67,10 @@ export function AppSidebar({ user, ...props }: AppSidebarProps) {
       <SidebarFooter>
         <SidebarMenu className="p-2 flex gap-4 flex-row">
           <UserButton />
-          <div className="text-sm text-stone-300 ">
-            <DisplayText className="w-full h-full justify-between items-center text-sm font-semibold flex gap-x-2">
-              <span>{user?.username || "No username"}</span>
-              <span>{user?.email || "No email"}</span>
-            </DisplayText>
-          </div>
+          <DisplayText className="text-left flex flex-col w-full h-full justify-start text-xs font-semibold gap-y-0.5">
+            <span>{user?.username || "No username"}</span>
+            <span>{user?.email || "No email"}</span>
+          </DisplayText>
         </SidebarMenu>
       </SidebarFooter>
     </Sidebar>

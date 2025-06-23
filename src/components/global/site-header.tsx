@@ -3,6 +3,7 @@
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { usePathname } from "next/navigation";
+import { DisplayText } from "./display-text";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -83,14 +84,14 @@ export function SiteHeader() {
                 <BreadcrumbItem>
                   {breadcrumb.isLast ? (
                     <BreadcrumbPage className="text-base font-medium">
-                      {breadcrumb.label}
+                      <DisplayText>{breadcrumb.label}</DisplayText>
                     </BreadcrumbPage>
                   ) : (
                     <BreadcrumbLink
                       href={breadcrumb.href}
                       className="text-base font-medium hover:text-foreground"
                     >
-                      {breadcrumb.label}
+                      <DisplayText>{breadcrumb.label}</DisplayText>
                     </BreadcrumbLink>
                   )}
                 </BreadcrumbItem>

@@ -1,73 +1,103 @@
-import { SectionCards } from "./components/SectionCards";
-import { type room } from "@/server/db/schema";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Suspense } from "react";
-import { currentUser } from "@clerk/nextjs/server";
-import { client } from "@/lib/client";
+"use client";
 
-const LoadingSkeleton = () => {
+import {
+  Briefcase,
+  Clock,
+  MessageSquare,
+  TrendingUp,
+  Calendar,
+  CheckCircle,
+} from "lucide-react";
+import { StatCards } from "./components/StatCards";
+import { EasySearch } from "./components/EasySearch";
+import { RecentList } from "./components/RecentList";
+import { StatChart } from "./components/StatChart";
+import { Status } from "./components/RecentList";
+
+export default function OverviewPage() {
+  // Mock data for demonstration
+  const statsData = [
+    {
+      title: "Jobs Applied",
+      displayValue: "24",
+      change: "+12%",
+      changeType: "positive" as const,
+      icon: Briefcase,
+      description: "This month",
+    },
+    {
+      title: "Active Applications",
+      displayValue: "8",
+      change: "+3",
+      changeType: "positive" as const,
+      icon: Clock,
+      description: "Pending responses",
+    },
+    {
+      title: "Interviews Practiced",
+      displayValue: "47",
+      change: "+23%",
+      changeType: "positive" as const,
+      icon: MessageSquare,
+      description: "Total sessions",
+    },
+    {
+      title: "Success Rate",
+      displayValue: "68%",
+      change: "+5%",
+      changeType: "positive" as const,
+      icon: TrendingUp,
+      description: "Interview to offer",
+    },
+  ];
+
+  const recentActivity = [
+    {
+      type: "application",
+      title: "Applied to Senior Frontend Developer",
+      company: "TechCorp Inc.",
+      time: "2 hours ago",
+      status: Status.submitted,
+      icon: Briefcase,
+    },
+    {
+      type: "interview",
+      title: "Completed practice session",
+      company: "Technical Interview - React",
+      time: "5 hours ago",
+      status: Status.completed,
+      icon: MessageSquare,
+    },
+    {
+      type: "response",
+      title: "Interview invitation received",
+      company: "StartupXYZ",
+      time: "1 day ago",
+      status: Status.action_required,
+      icon: Calendar,
+    },
+    {
+      type: "application",
+      title: "Application viewed",
+      company: "BigTech Corp",
+      time: "2 days ago",
+      status: Status.viewed,
+      icon: CheckCircle,
+    },
+  ];
+
+  // Recent activity data
+
   return (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 h-full overflow-hidden w-full">
-      <Skeleton className="w-full h-full" />
-      <Skeleton className="w-full h-full" />
-      <Skeleton className="w-full h-full" />
-      <Skeleton className="w-full h-full" />
-      <Skeleton className="w-full h-full" />
-      <Skeleton className="w-full h-full" />
-      <Skeleton className="w-full h-full" />
-      <Skeleton className="w-full h-full" />
-    </div>
-  );
-};
-
-// Component to fetch and display room data
-async function RoomData() {
-  const clerkUser = await currentUser();
-  let rooms: room[] = [];
-
-  try {
-    const temp = await client.user.getDbUser.$get({
-      clerkId: clerkUser?.id || "",
-    });
-    const user = await temp.json();
-    const res = await client.room.getAllByUserId.$get({
-      userId: user?.id || 0,
-    });
-    rooms = await res.json();
-  } catch (error) {
-    console.error("Error fetching rooms:", error);
-    return (
-      <div>
-        Error fetching rooms. Make sure you are connected to CityU&apos;s
-        network.
-      </div>
-    );
-  }
-
-  return <SectionCards data={rooms} />;
-}
-
-export default function Page() {
-  return (
-    <div className="flex flex-col gap-2 py-4 md:gap-6 md:py-6 px-4 h-full">
-      {/* <SectionSearchBar
-        value={""}
-        onChange={function (value: string): void {
-          throw new Error("Function not implemented.");
-        }}
-      /> */}
-
-      <Suspense fallback={<LoadingSkeleton />}>
-        <RoomData />
-      </Suspense>
-
-      {/* <SectionPagination
-        currentPage={0}
-        totalPages={0}
-        onPageChange={function (page: number): void {
-          throw new Error("Function not implemented.");
-        }}
-      /> */}
+    <div className="p-6 space-y-6 w-full mx-auto">
+      {/* Stats Cards */}
+      <StatCards data={statsData} />
+      {/* Easy Search Section */}
+      <EasySearch />
+      {/* Recent Activity */}
+      <RecentList data={recentActivity} />
+      {/* Timeline Chart */}
+      <StatChart />
     </div>
   );
 }

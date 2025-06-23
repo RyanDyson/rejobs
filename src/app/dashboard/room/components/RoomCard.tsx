@@ -16,7 +16,7 @@ export const RoomCard = ({ data }: RoomCardProps) => {
   const formattedUpdatedAt = formatDate(data.updatedAt);
 
   return (
-    <Card className="@container/card ring-0  w-full h-full flex flex-col justify-between hover:to-pink-300 transition-colors cursor-pointer bg-gradient-to-b from-white to-pink-100 hover:border-primary">
+    <Card className="@container/card ring-0  w-full h-full flex flex-col justify-between hover:to-emerald-300 transition-colors cursor-pointer bg-gradient-to-b from-white to-emerald-100 hover:border-primary">
       <CardHeader className="max-w-full flex-wrap flex flex-col gap-y-0.5">
         <div className="flex w-full items-start justify-between gap-x-1">
           <CardDescription className="text-muted-foreground text-nowrap w-full overflow-hidden">
