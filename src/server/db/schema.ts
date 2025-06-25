@@ -1,4 +1,11 @@
-import { pgTable, text, timestamp, pgEnum, integer } from "drizzle-orm/pg-core";
+import {
+  pgTable,
+  text,
+  timestamp,
+  pgEnum,
+  integer,
+  json,
+} from "drizzle-orm/pg-core";
 
 export const tagsEnum = pgEnum("tags", [
   "Full-time",
@@ -7,12 +14,22 @@ export const tagsEnum = pgEnum("tags", [
   "Placement",
 ]);
 
+export const applicationStatusEnum = pgEnum("application_status", [
+  "submitted",
+  "in-review",
+  "interviewing",
+  "offer-made",
+  "rejected",
+  "third-party",
+]);
+
 export const roleEnum = pgEnum("role", ["user", "assistant"]);
 
 export const roomTable = pgTable("room", {
   id: integer("id").generatedByDefaultAsIdentity().notNull().primaryKey(),
   name: text("name").notNull(),
   description: text("description").notNull(),
+  originalJSON: json("original_json").notNull(),
   prompt: text("prompt").notNull(),
   updatedAt: timestamp("updated_at", { withTimezone: true })
     .notNull()
@@ -23,9 +40,7 @@ export const roomTable = pgTable("room", {
   userId: integer("user_id")
     .notNull()
     .references(() => userTable.id),
-  jobId: integer("job_id")
-    .notNull()
-    .references(() => jobTable.id),
+  jobId: integer("job_id").references(() => jobTable.id),
 }).enableRLS();
 
 export const roomSessionTable = pgTable("room_session", {
@@ -98,6 +113,12 @@ export const applicationsTable = pgTable("applications", {
   jobId: integer("job_id")
     .notNull()
     .references(() => jobTable.id),
+  createdAt: timestamp("created_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+  updatedAt: timestamp("updated_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
 }).enableRLS();
 
 export type room = typeof roomTable.$inferSelect;

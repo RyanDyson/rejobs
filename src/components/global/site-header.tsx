@@ -70,7 +70,7 @@ export function SiteHeader() {
   const breadcrumbs = BreadCrumbGenerator(pathname);
 
   return (
-    <header className="flex h-(--header-height) shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-(--header-height)">
+    <header className="fixed z-50 w-full bg-background/80 backdrop-blur-lg flex h-(--header-height) shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-(--header-height)">
       <div className="py-1 flex w-full items-center gap-1 px-4 lg:gap-2 lg:px-6 ">
         <SidebarTrigger className="-ml-1" />
         <Separator
@@ -78,7 +78,7 @@ export function SiteHeader() {
           className="mx-2 data-[orientation=vertical]:h-4"
         />
         <Breadcrumb>
-          <BreadcrumbList>
+          <BreadcrumbList className="flex items-center gap-2">
             {breadcrumbs.map((breadcrumb, index) => (
               <div key={index} className="flex items-center">
                 <BreadcrumbItem>

@@ -1,0 +1,1 @@
+ALTER TABLE "room" ALTER COLUMN "job_id" DROP NOT NULL;

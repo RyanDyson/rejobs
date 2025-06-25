@@ -80,12 +80,9 @@ export default function Page({
   params: Promise<{ slug: string }>;
 }) {
   return (
-    <div className="@container/main max-h-full flex gap-2 py-4 md:gap-6 md:py-6 px-4">
-      <Suspense fallback={<LoadingSkeleton />}>
-        <RoomDataWrapper params={params} />
-      </Suspense>
-      {/* <LoadingSkeleton /> */}
-    </div>
+    <Suspense fallback={<LoadingSkeleton />}>
+      <RoomDataWrapper params={params} />
+    </Suspense>
   );
 }
 

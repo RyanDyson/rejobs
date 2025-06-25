@@ -17,6 +17,7 @@ import { StartAvatarRequest } from "@heygen/streaming-avatar";
 import { Check, User } from "lucide-react";
 import { type Dispatch, type SetStateAction } from "react";
 import Image from "next/image";
+import { DisplayText } from "@/components/global/display-text";
 
 type AvatarSelectionDialogProps = {
   open: boolean;
@@ -66,8 +67,8 @@ export const AvatarDialog = ({
       <DialogContent className="sm:max-w-[600px] max-h-[80vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <User className="h-5 w-5" />
-            Choose Your AI Avatar
+            <User className="h-5 w-5 text-primary" />
+            <DisplayText className="text-xl">Choose Your AI Avatar</DisplayText>
           </DialogTitle>
           <DialogDescription>
             Select an avatar to represent your AI tutor during the session. You
@@ -81,32 +82,28 @@ export const AvatarDialog = ({
             return (
               <Card
                 key={avatar.avatar_id}
-                className={`cursor-pointer h-min transition-all duration-200 hover:shadow-md py-0 ${
+                className={`cursor-pointer h-min transition-all duration-200 rounded-lg py-0 ${
                   isSelected
                     ? "ring-2 ring-primary bg-primary/5"
-                    : "hover:bg-gray-50"
+                    : "hover:bg-primary/5 hover:border-primary/25 border"
                 }`}
                 onClick={() => handleAvatarSelect(avatar.avatar_id)}
               >
-                <CardContent className="p-4 h-min">
-                  <div className="flex items-center justify-between">
+                <CardContent className="p-2 h-min">
+                  <div className="px-1 flex items-center justify-between">
                     <div className="flex flex-col">
                       <Label className="font-medium text-base cursor-pointer">
                         {avatar.name}
                       </Label>
                     </div>
-                    {isSelected && (
-                      <div className="flex items-center justify-center w-6 h-6 bg-primary rounded-full">
-                        <Check className="h-4 w-4 text-white" />
-                      </div>
-                    )}
+                    {isSelected && <Check className="h-4 w-4 text-primary" />}
                   </div>
 
                   {/* Avatar preview placeholder - you can add actual avatar images here */}
                   <Image
                     src={avatar.preview}
                     alt={avatar.name}
-                    className="object-cover aspect-video mt-2 min-h-32 w-full h-20 bg-gradient-to-br from-blue-100 to-purple-100 rounded-lg flex items-center justify-center"
+                    className="object-cover aspect-video mt-2 min-h-32 w-full h-20 bg-gradient-to-br from-blue-100 to-purple-100 rounded-md flex items-center justify-center"
                   />
                 </CardContent>
               </Card>
@@ -115,13 +112,17 @@ export const AvatarDialog = ({
         </div>
 
         <div className="flex justify-between items-center pt-4 border-t">
-          <Button variant="outline" onClick={() => onOpenChange(false)}>
+          <Button
+            variant="outline"
+            className="cursor-pointer"
+            onClick={() => onOpenChange(false)}
+          >
             Cancel
           </Button>
           <Button
             onClick={handleConfirm}
             disabled={!selectedAvatarId}
-            className="min-w-[120px]"
+            className="min-w-[120px] cursor-pointer"
           >
             Start Session
           </Button>

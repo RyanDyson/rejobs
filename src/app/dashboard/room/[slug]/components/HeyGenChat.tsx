@@ -67,7 +67,7 @@ export const HeyGenChat = ({ prompt }: { prompt: string }) => {
   }, [chat]);
 
   return (
-    <div className="relative bg-white rounded-xl shrink h-auto max-h-1/4 flex flex-col border border-gray-200">
+    <div className="relative bg-card rounded-xl shrink h-auto max-h-1/4 flex flex-col border border-accent">
       <div
         ref={chatContainerRef}
         className="flex flex-col gap-y-2 overflow-y-auto p-4 scroll-smooth h-full"

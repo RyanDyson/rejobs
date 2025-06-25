@@ -1,97 +1,95 @@
-"use client";
-
-import {
-  Briefcase,
-  Clock,
-  MessageSquare,
-  TrendingUp,
-  Calendar,
-  CheckCircle,
-} from "lucide-react";
 import { StatCards } from "./components/StatCards";
 import { EasySearch } from "./components/EasySearch";
-import { RecentList } from "./components/RecentList";
+import { RecentList, Status } from "./components/RecentList";
 import { StatChart } from "./components/StatChart";
-import { Status } from "./components/RecentList";
 
 export default function OverviewPage() {
-  // Mock data for demonstration
-  const statsData = [
+  const tempData = [
     {
-      title: "Jobs Applied",
-      displayValue: "24",
-      change: "+12%",
-      changeType: "positive" as const,
-      icon: Briefcase,
-      description: "This month",
+      stats: 10,
+      change: 2,
     },
     {
-      title: "Active Applications",
-      displayValue: "8",
-      change: "+3",
-      changeType: "positive" as const,
-      icon: Clock,
-      description: "Pending responses",
+      stats: 5,
+      change: -1,
     },
     {
-      title: "Interviews Practiced",
-      displayValue: "47",
-      change: "+23%",
-      changeType: "positive" as const,
-      icon: MessageSquare,
-      description: "Total sessions",
+      stats: 20,
+      change: 3,
     },
     {
-      title: "Success Rate",
-      displayValue: "68%",
-      change: "+5%",
-      changeType: "positive" as const,
-      icon: TrendingUp,
-      description: "Interview to offer",
+      stats: 75,
+      change: 5,
     },
   ];
 
   const recentActivity = [
     {
-      type: "application",
-      title: "Applied to Senior Frontend Developer",
-      company: "TechCorp Inc.",
+      title: "Completed React Developer Interview Practice",
+      company: "Meta Practice Room",
       time: "2 hours ago",
-      status: Status.submitted,
-      icon: Briefcase,
-    },
-    {
-      type: "interview",
-      title: "Completed practice session",
-      company: "Technical Interview - React",
-      time: "5 hours ago",
       status: Status.completed,
-      icon: MessageSquare,
     },
     {
-      type: "response",
-      title: "Interview invitation received",
-      company: "StartupXYZ",
+      title: "Applied for Senior Frontend Engineer",
+      company: "Google",
+      time: "4 hours ago",
+      status: Status.submitted,
+    },
+    {
+      title: "Follow up required for Software Engineer role",
+      company: "Microsoft",
       time: "1 day ago",
       status: Status.action_required,
-      icon: Calendar,
     },
     {
-      type: "application",
-      title: "Application viewed",
-      company: "BigTech Corp",
+      title: "Application viewed by recruiter",
+      company: "Apple",
       time: "2 days ago",
       status: Status.viewed,
-      icon: CheckCircle,
+    },
+    {
+      title: "Completed System Design Interview Practice",
+      company: "Amazon Practice Room",
+      time: "3 days ago",
+      status: Status.completed,
+    },
+    {
+      title: "Applied for Full Stack Developer",
+      company: "Netflix",
+      time: "4 days ago",
+      status: Status.submitted,
+    },
+    {
+      title: "Portfolio review needed for UI/UX Designer",
+      company: "Figma",
+      time: "5 days ago",
+      status: Status.action_required,
+    },
+    {
+      title: "Application status updated",
+      company: "Spotify",
+      time: "1 week ago",
+      status: Status.viewed,
+    },
+    {
+      title: "Completed Behavioral Interview Practice",
+      company: "Tesla Practice Room",
+      time: "1 week ago",
+      status: Status.completed,
+    },
+    {
+      title: "Applied for DevOps Engineer",
+      company: "Airbnb",
+      time: "1 week ago",
+      status: Status.submitted,
     },
   ];
 
-  // Recent activity data
-
   return (
-    <div className="p-6 space-y-6 w-full mx-auto">
+    <div className="p-6 space-y-4 w-full mx-auto">
       {/* Stats Cards */}
-      <StatCards data={statsData} />
+      <StatCards data={tempData} />
       {/* Easy Search Section */}
       <EasySearch />
       {/* Recent Activity */}

@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { useStreamingAvatarSession } from "@/hooks/avatar-utils";
 import { StreamingAvatarSessionState } from "@/hooks/avatar-utils";
+import { DisplayText } from "@/components/global/display-text";
 
 const CardItem = ({
   left,
@@ -57,10 +58,12 @@ export function RoomDetailSection({
   }, [sessionState]);
 
   return (
-    <Card className="p-4 in-w-[200px] h-min transition-all duration-300 ease-in-out flex flex-col justify-between bg-gradient-to-b from-white to-pink-100">
+    <Card className="p-4 in-w-[200px] h-min transition-all duration-300 ease-in-out flex flex-col justify-between bg-gradient-to-b from-card to-primary/25 ">
       <CardHeader className="p-0 flex justify-between items-center">
-        <CardTitle className="max-w-full text-primary flex-wrap text-2xl font-semibold tabular-nums @[250px]/card:text-3xl text-wrap wrap-anywhere">
-          {roomID}
+        <CardTitle>
+          <DisplayText className="max-w-full text-white flex-wrap text-3xl font-semibold tabular-nums @[250px]/card:text-3xl text-wrap wrap-anywhere">
+            {roomID}
+          </DisplayText>
         </CardTitle>
         <Button
           variant="ghost"
@@ -84,13 +87,17 @@ export function RoomDetailSection({
         <div ref={contentRef}>
           <CardContent className="h-full flex-col gap-y-2 text-sm divide-y divide-muted p-0">
             <div className="flex flex-col gap-y-2 pb-2">
-              <span className="text-lg font-semibold">Room Details</span>
+              <DisplayText className="text-lg font-semibold">
+                Room Details
+              </DisplayText>
               {roomDetails.map((item, index) => (
                 <CardItem key={index} left={item.left} right={item.right} />
               ))}
             </div>
             <div className="flex flex-col gap-y-2 pb-2 pt-2">
-              <span className="text-lg font-semibold">Course Details</span>
+              <DisplayText className="text-lg font-semibold">
+                Job Details
+              </DisplayText>
               {courseDetails.map((item, index) => (
                 <CardItem key={index} left={item.left} right={item.right} />
               ))}

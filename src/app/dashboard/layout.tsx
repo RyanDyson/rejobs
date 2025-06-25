@@ -34,7 +34,7 @@ export default async function RootLayout({
             <AppSidebar user={user || ({} as user)} />
             <SidebarInset className="max-h-full flex flex-col">
               <SiteHeader />
-              {children}
+              <div className="pt-8 h-full">{children}</div>
             </SidebarInset>
             <Toaster />
           </SidebarProvider>

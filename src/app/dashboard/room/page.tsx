@@ -9,7 +9,7 @@ import { client } from "@/lib/client";
 
 const LoadingSkeleton = () => {
   return (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 h-full overflow-hidden w-full">
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 overflow-hidden w-full">
       <Skeleton className="w-full h-full" />
       <Skeleton className="w-full h-full" />
       <Skeleton className="w-full h-full" />

@@ -1,5 +1,7 @@
 import { StreamingAvatarSessionState } from "@/hooks/avatar-utils";
 import { ConnectionQuality } from "@heygen/streaming-avatar";
+import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
 
 export const StateBadge = ({
   sessionState,
@@ -11,38 +13,55 @@ export const StateBadge = ({
   const isActive = sessionState === StreamingAvatarSessionState.CONNECTED;
   const isConnecting = sessionState === StreamingAvatarSessionState.CONNECTING;
 
+  const getBadgeVariant = () => {
+    if (isActive) {
+      switch (connectionQuality) {
+        case ConnectionQuality.GOOD:
+          return "default";
+        case ConnectionQuality.BAD:
+          return "destructive";
+        case ConnectionQuality.UNKNOWN:
+        default:
+          return "secondary";
+      }
+    }
+    return sessionState === StreamingAvatarSessionState.INACTIVE
+      ? "outline"
+      : "secondary";
+  };
+
   const getBadgeStyles = () => {
     if (isActive) {
       switch (connectionQuality) {
         case ConnectionQuality.GOOD:
-          return "bg-emerald-100 border-emerald-500";
+          return "bg-emerald-800 hover:bg-emerald-800 text-white border-emerald-300 dark:bg-emerald-900 dark:hover:bg-emerald-900 dark:border-emerald-400";
         case ConnectionQuality.BAD:
-          return "bg-red-100 border-red-500";
+          return "bg-red-800 hover:bg-red-800 text-white border-red-300 dark:bg-red-900 dark:hover:bg-red-900 dark:border-red-400";
         case ConnectionQuality.UNKNOWN:
         default:
-          return "bg-gray-100 border-gray-500";
+          return "bg-gray-800 hover:bg-gray-800 text-white border-gray-300 dark:bg-gray-900 dark:hover:bg-gray-900 dark:border-gray-400";
       }
     }
     return sessionState === StreamingAvatarSessionState.INACTIVE
-      ? "bg-indigo-100 border-indigo-500"
-      : "bg-amber-100 border-amber-500";
+      ? "bg-indigo-800 hover:bg-indigo-800 text-white border-indigo-300 dark:bg-indigo-900 dark:hover:bg-indigo-900 dark:border-indigo-400"
+      : "bg-amber-800 hover:bg-amber-800 text-white border-amber-300 dark:bg-amber-900 dark:hover:bg-amber-900 dark:border-amber-400";
   };
 
   const getDotStyles = () => {
     if (isActive) {
       switch (connectionQuality) {
         case ConnectionQuality.GOOD:
-          return "bg-emerald-500";
+          return "bg-emerald-200 dark:bg-emerald-300";
         case ConnectionQuality.BAD:
-          return "bg-red-500";
+          return "bg-red-200 dark:bg-red-300";
         case ConnectionQuality.UNKNOWN:
         default:
-          return "bg-gray-500";
+          return "bg-gray-200 dark:bg-gray-300";
       }
     }
     return sessionState === StreamingAvatarSessionState.INACTIVE
-      ? "bg-indigo-500"
-      : "bg-amber-500";
+      ? "bg-indigo-200 dark:bg-indigo-300"
+      : "bg-amber-200 dark:bg-amber-300";
   };
 
   const getDisplayText = () => {
@@ -64,11 +83,21 @@ export const StateBadge = ({
   };
 
   return (
-    <div
-      className={`flex items-center gap-2 ${getBadgeStyles()} rounded-full p-2 border text-sm px-4`}
+    <Badge
+      variant={getBadgeVariant()}
+      className={cn(
+        "flex items-center gap-2 px-3 py-1.5 text-sm font-medium rounded-full border",
+        getBadgeStyles()
+      )}
     >
-      <div className={`w-3 h-3 rounded-full ${getDotStyles()}`} />
-      <span>{getDisplayText()}</span>
-    </div>
+      <div
+        className={cn(
+          "w-2 h-2 rounded-full flex-shrink-0",
+          getDotStyles(),
+          isConnecting && "animate-pulse"
+        )}
+      />
+      <span className="whitespace-nowrap">{getDisplayText()}</span>
+    </Badge>
   );
 };

@@ -39,7 +39,7 @@ export default function Home() {
       <AnimatedOrbs />
 
       <motion.div
-        className="absolute top-20 left-20 w-2 h-2 bg-[#009758] rounded-full"
+        className="absolute top-20 left-20 w-2 h-2 bg-primary rounded-full"
         animate={{
           y: [0, -20, 0],
           opacity: [0.3, 1, 0.3],
@@ -51,7 +51,7 @@ export default function Home() {
         }}
       />
       <motion.div
-        className="absolute top-40 right-32 w-1 h-1 bg-[#009758] rounded-full"
+        className="absolute top-40 right-32 w-1 h-1 bg-primary rounded-full"
         animate={{
           y: [0, -15, 0],
           opacity: [0.2, 0.8, 0.2],
@@ -80,7 +80,7 @@ export default function Home() {
             >
               <Badge
                 variant="secondary"
-                className="mb-6 bg-[#009758]/10 text-[#009758] border-[#009758]/20"
+                className="mb-6 bg-primary/10 text-primary border-primary/20"
               >
                 <Github className="w-4 h-4 mr-2" />
                 Open Source & Free Forever
@@ -210,10 +210,10 @@ export default function Home() {
                 viewport={{ once: true }}
                 whileHover={{ y: -5 }}
               >
-                <Card className="bg-n-900/50 bg-background/60 backdrop-blur-xl border-n-800 hover:border-[#009758]/30 transition-all duration-300 h-full">
+                <Card className="bg-n-900/50 bg-background/60 backdrop-blur-xl border-n-800 hover:border-primary/30 transition-all duration-300 h-full">
                   <CardHeader className="text-center">
-                    <div className="w-12 h-12 bg-[#009758]/10 rounded-lg flex items-center justify-center mb-4 mx-auto">
-                      <feature.icon className="w-6 h-6 text-[#009758]" />
+                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 mx-auto">
+                      <feature.icon className="w-6 h-6 text-primary" />
                     </div>
                     <CardTitle className="text-white">
                       {feature.title}
@@ -270,7 +270,7 @@ export default function Home() {
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                     viewport={{ once: true }}
                   >
-                    <CheckCircle className="w-5 h-5 text-[#009758] flex-shrink-0" />
+                    <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
                     <span className="text-n-300">{item}</span>
                   </motion.div>
                 ))}
@@ -318,10 +318,10 @@ export default function Home() {
               viewport={{ once: true }}
               whileHover={{ y: -5 }}
             >
-              <Card className="bg-zinc-900/50 border-zinc-800 hover:border-[#009758]/30 transition-all duration-300 h-full relative">
+              <Card className="bg-zinc-900/50 border-zinc-800 hover:border-primary/30 transition-all duration-300 h-full relative">
                 <CardHeader className="text-center pb-8 pt-8">
-                  <div className="w-16 h-16 bg-[#009758]/10 rounded-2xl flex items-center justify-center mb-6 mx-auto">
-                    <Heart className="w-8 h-8 text-[#009758]" />
+                  <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 mx-auto">
+                    <Heart className="w-8 h-8 text-primary" />
                   </div>
                   <CardTitle className="text-2xl text-white mb-2">
                     Free Forever
@@ -347,14 +347,14 @@ export default function Home() {
                         "Open source & community driven",
                       ].map((feature, index) => (
                         <li key={index} className="flex items-center gap-3">
-                          <Check className="w-5 h-5 text-[#009758] flex-shrink-0" />
+                          <Check className="w-5 h-5 text-primary flex-shrink-0" />
                           <span className="text-zinc-300">{feature}</span>
                         </li>
                       ))}
                     </ul>
                     <Button
                       onClick={() => redirect("/sign-in")}
-                      className="w-full bg-[#009758] hover:bg-[#007A46] text-white"
+                      className="w-full bg-primary hover:bg-[#007A46] text-white"
                     >
                       <DisplayText className="text-lg">
                         Get Started Free
@@ -373,15 +373,15 @@ export default function Home() {
               viewport={{ once: true }}
               whileHover={{ y: -5 }}
             >
-              <Card className="flex flex-col justify-between items-center bg-gradient-to-b from-[#009758]/5 to-zinc-900/50 border-[#009758]/30 hover:border-[#009758]/50 transition-all duration-300 h-full relative">
+              <Card className="flex flex-col justify-between items-center bg-gradient-to-b from-primary/5 to-zinc-900/50 border-primary/30 hover:border-primary/50 transition-all duration-300 h-full relative">
                 <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                  <Badge className="bg-[#009758] text-white px-4 py-1">
+                  <Badge className="bg-primary text-white px-4 py-1">
                     Support Development
                   </Badge>
                 </div>
                 <CardHeader className="w-full text-center pb-8 pt-8">
-                  <div className="w-16 h-16 bg-[#009758]/20 rounded-2xl flex items-center justify-center mb-6 mx-auto">
-                    <Coffee className="w-8 h-8 text-[#009758]" />
+                  <div className="w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center mb-6 mx-auto">
+                    <Coffee className="w-8 h-8 text-primary" />
                   </div>
                   <CardTitle className="text-2xl text-white mb-2">
                     Pro Supporter
@@ -406,12 +406,12 @@ export default function Home() {
                         "Special supporter badge",
                       ].map((feature, index) => (
                         <li key={index} className="flex items-center gap-3">
-                          <Check className="w-5 h-5 text-[#009758] flex-shrink-0" />
+                          <Check className="w-5 h-5 text-primary flex-shrink-0" />
                           <span className="text-zinc-300">{feature}</span>
                         </li>
                       ))}
                     </ul>
-                    <Button className="text-lg w-full bg-gradient-to-r from-[#009758] to-[#007A46] hover:from-[#007A46] hover:to-[#005A35] text-white">
+                    <Button className="text-lg w-full bg-gradient-to-r from-primary to-[#007A46] hover:from-[#007A46] hover:to-[#005A35] text-white">
                       <DisplayText>Support Development</DisplayText>
                       <Heart className="ml-2 w-4 h-4" />
                     </Button>
@@ -436,7 +436,7 @@ export default function Home() {
             <div className="flex items-center gap-6">
               <Link
                 href="https://github.com/RyanDyson/rejobs"
-                className="text-n-400 hover:text-[#009758] transition-colors"
+                className="text-n-400 hover:text-primary transition-colors"
               >
                 <Github className="w-5 h-5" />
               </Link>

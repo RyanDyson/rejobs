@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Card,
   CardContent,
@@ -6,116 +8,110 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Clock, Building } from "lucide-react";
+import {
+  Clock,
+  Building,
+  CheckCircle,
+  AlertCircle,
+  Send,
+  Eye,
+} from "lucide-react";
 import { DisplayText } from "@/components/global/display-text";
-import { LucideIcon } from "lucide-react";
-import { Briefcase, MessageSquare, Calendar, CheckCircle } from "lucide-react";
 
 export enum Status {
   submitted = "submitted",
   completed = "completed",
-  action_required = "action required",
+  action_required = "action_required",
   viewed = "viewed",
 }
-const recentActivity = [
-  {
-    type: "application",
-    title: "Applied to Senior Frontend Developer",
-    company: "TechCorp Inc.",
-    time: "2 hours ago",
-    status: Status.submitted,
-    icon: Briefcase,
-  },
-  {
-    type: "interview",
-    title: "Completed practice session",
-    company: "Technical Interview - React",
-    time: "5 hours ago",
-    status: Status.completed,
-    icon: MessageSquare,
-  },
-  {
-    type: "response",
-    title: "Interview invitation received",
-    company: "StartupXYZ",
-    time: "1 day ago",
-    status: Status.action_required,
-    icon: Calendar,
-  },
-  {
-    type: "application",
-    title: "Application viewed",
-    company: "BigTech Corp",
-    time: "2 days ago",
-    status: Status.viewed,
+
+type RecentActivity = {
+  title: string;
+  company: string;
+  time: string;
+  status: Status;
+};
+
+const STATUS_CONFIG = {
+  [Status.completed]: {
+    variant: "default" as const,
+    className: "bg-green-100 text-green-800 hover:bg-green-100",
     icon: CheckCircle,
   },
-];
+  [Status.action_required]: {
+    variant: "default" as const,
+    className: "bg-red-50 text-red-800 hover:bg-red-50",
+    icon: AlertCircle,
+  },
+  [Status.submitted]: {
+    variant: "secondary" as const,
+    className: "bg-blue-100 text-blue-800 hover:bg-blue-100",
+    icon: Send,
+  },
+  [Status.viewed]: {
+    variant: "secondary" as const,
+    className: "bg-gray-100 text-gray-800 hover:bg-gray-100",
+    icon: Eye,
+  },
+};
 
-export type RecentActivity = (typeof recentActivity)[number];
+const ActivityItem = ({ activity }: { activity: RecentActivity }) => {
+  // Add fallback for undefined status
+  const activityStatus = activity.status || Status.viewed;
+  const statusConfig =
+    STATUS_CONFIG[activityStatus] || STATUS_CONFIG[Status.viewed];
+  const formattedStatus = activityStatus
+    ? activityStatus.replace("_", " ")
+    : "unknown";
+  const IconComponent = statusConfig.icon;
 
-const ActivityItem = ({
-  activity,
-}: {
-  activity: {
-    title: string;
-    company: string;
-    time: string;
-    status: Status;
-    icon: LucideIcon;
-  };
-}) => {
+  // Add fallbacks for other potentially undefined properties
+  const title = activity.title || "Unknown Activity";
+  const company = activity.company || "Unknown Company";
+  const time = activity.time || "Unknown time";
+
   return (
-    <div className="@container flex items-center gap-4 py-4 px-2 ">
+    <div className="@container flex items-center gap-4 py-4 px-2">
       <div className="p-2 rounded-full bg-white">
-        <activity.icon className="h-4 w-4 text-[#009758]" />
+        <IconComponent className="h-4 w-4 text-primary" />
       </div>
+
       <div className="flex @lg:flex-row gap-y-2 items-start @lg:items-center w-full flex-col justify-between">
         <div className="text-muted-foreground text-xs flex justify-start items-center gap-2">
-          <span className="text-white font-medium text-sm w-fit">
-            {activity.title}
-          </span>
+          <span className="text-white font-medium text-sm w-fit">{title}</span>
           <span>•</span>
           <Building className="h-3 w-3" />
-          <span>{activity.company}</span>
+          <span>{company}</span>
         </div>
+
         <div className="@lg:min-w-48 justify-between flex @lg:flex-row flex-col gap-y-2 @lg:items-center gap-2 text-xs text-muted-foreground mt-1">
           <Badge
-            variant={
-              activity.status === Status.completed
-                ? "default"
-                : activity.status === Status.action_required
-                ? "default"
-                : "secondary"
-            }
-            className={
-              activity.status === Status.completed
-                ? "bg-green-100 text-green-800"
-                : activity.status === Status.action_required
-                ? "bg-red-50 text-red-800"
-                : "bg-blue-100 text-blue-800"
-            }
+            variant={statusConfig.variant}
+            className={statusConfig.className}
           >
-            {activity.status.replace("_", " ")}
+            {formattedStatus}
           </Badge>
-          <span>{activity.time}</span>
+          <span>{time}</span>
         </div>
       </div>
     </div>
   );
 };
 
-export function RecentList({
-  data = recentActivity,
-}: {
+type RecentListProps = {
   data: RecentActivity[];
-}) {
+};
+
+export function RecentList({ data }: RecentListProps) {
+  // Add fallback for empty or undefined data
+  const activities = data || [];
+
   return (
     <Card>
       <CardHeader>
         <CardTitle>
           <DisplayText className="text-lg flex items-center gap-2">
-            <Clock className="h-5 w-5 text-[#009758]" />
+            <Clock className="h-5 w-5 text-primary" />
             Recent Activity
           </DisplayText>
         </CardTitle>
@@ -124,11 +120,26 @@ export function RecentList({
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="divide-y divide-accent">
-          {data.map((activity, index) => (
-            <ActivityItem key={index} activity={activity} />
-          ))}
-        </div>
+        {activities.length > 0 ? (
+          <div className="divide-y divide-accent">
+            {activities.map((activity, index) => (
+              <ActivityItem
+                key={`${activity?.title || "activity"}-${
+                  activity?.time || "time"
+                }-${index}`}
+                activity={activity}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-8 text-muted-foreground">
+            <Clock className="h-12 w-12 mx-auto mb-4 opacity-50" />
+            <p>No recent activity found</p>
+            <p className="text-sm">
+              Your activities will appear here once you start using the platform
+            </p>
+          </div>
+        )}
       </CardContent>
     </Card>
   );

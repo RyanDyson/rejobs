@@ -15,6 +15,20 @@
       "when": 1750664662348,
       "tag": "0001_premium_madelyne_pryor",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1750684404517,
+      "tag": "0002_chemical_plazm",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1750836036252,
+      "tag": "0003_wonderful_cannonball",
+      "breakpoints": true
     }
   ]
 }

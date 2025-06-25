@@ -32,6 +32,8 @@ import { QualitySelect } from "./QualitySelect";
 import { AvatarDialog } from "./AvatarDialog";
 import { SpeakRequest } from "@heygen/streaming-avatar";
 import { StreamingAvatarSessionState } from "@/hooks/avatar-utils";
+import { client } from "@/lib/client";
+import { useQuery } from "@tanstack/react-query";
 
 export enum RecognitionMode {
   DIRECT = "direct",
@@ -72,13 +74,22 @@ export const HeyGenControls = ({
   const editAreaRef = useRef<HTMLDivElement>(null);
   const avatarRef = useRef<StreamingAvatar | null>(null);
 
+  const { refetch: fetchToken } = useQuery({
+    queryKey: ["fetchAccessToken"],
+    queryFn: async () => {
+      const res = await client.avatar.createToken.$post();
+
+      if (!res) {
+        throw new Error("Failed to fetch access token");
+      }
+      return await res.json();
+    },
+    enabled: false,
+  });
+
   const fetchAccessToken = async () => {
     try {
-      const res = await fetch("/api/get-access-token", {
-        method: "POST",
-      });
-      const token = await res.text();
-      // console.log("Access token: ", token);
+      const { data: token } = await fetchToken();
       return token;
     } catch (error) {
       toast.error("Error fetching access token: " + error);
@@ -89,10 +100,12 @@ export const HeyGenControls = ({
     async ({ isVoiceChat }: { isVoiceChat: boolean }) => {
       try {
         const newToken = await fetchAccessToken();
+        console.log("New token fetched:", newToken);
         if (!newToken) {
           throw new Error("Failed to fetch access token");
         }
-        const avatar = initAvatar(newToken);
+        const avatar = initAvatar(newToken.token);
+
         avatarRef.current = avatar;
 
         avatar.on(StreamingEvents.AVATAR_START_TALKING, () => {
@@ -192,7 +205,7 @@ export const HeyGenControls = ({
   // console.log(avatarConfig);
 
   return (
-    <div className="flex flex-col gap-4 bg-zinc-100 rounded-xl pt-4">
+    <div className="flex flex-col gap-4 bg-background rounded-xl pt-4">
       <div className="flex justify-between items-center w-full gap-2 px-1">
         <StateBadge
           sessionState={sessionState}

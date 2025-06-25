@@ -24,6 +24,7 @@ export const roomRouter = j.router({
         name: z.string(),
         description: z.string(),
         prompt: z.string(),
+        originalJSON: z.object({}).optional(),
         userId: z.number(),
         jobId: z.number(),
       })
@@ -38,6 +39,7 @@ export const roomRouter = j.router({
         prompt,
         userId,
         jobId,
+        originalJSON: input.originalJSON || {},
       });
 
       return c.superjson(room);

@@ -45,29 +45,13 @@ export function EmptyRoomsState() {
               repeat: Infinity,
               ease: "easeInOut",
             }}
-            className="w-32 h-32 mx-auto mb-6 bg-gradient-to-br from-[#009758]/20 to-[#009758]/5 rounded-2xl flex items-center justify-center relative overflow-hidden"
+            className="w-32 h-32 mx-auto mb-6 bg-gradient-to-br from-primary/20 to-primary/5 rounded-2xl flex items-center justify-center relative overflow-hidden"
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-[#009758]/10 to-transparent rounded-2xl" />
-            <MessageSquare className="w-16 h-16 text-[#009758]" />
-
-            {/* Floating elements */}
-            <motion.div
-              animate={{ y: [-10, 10, -10] }}
-              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -top-2 -right-2 w-6 h-6 bg-[#009758]/20 rounded-full flex items-center justify-center"
-            >
-              <Sparkles className="w-3 h-3 text-[#009758]" />
-            </motion.div>
-
-            <motion.div
-              animate={{ y: [10, -10, 10] }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: 1.5,
-              }}
-              className="absolute -bottom-2 -left-2 w-4 h-4 bg-[#009758]/30 rounded-full"
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent rounded-2xl" />
+            <Sparkles
+              width={16}
+              height={16}
+              className="w-16 h-16 text-primary"
             />
           </motion.div>
         </div>
@@ -101,9 +85,9 @@ export function EmptyRoomsState() {
               transition={{ delay: 0.5 + index * 0.1, duration: 0.5 }}
               whileHover={{ y: -2 }}
             >
-              <Card className="h-full border-border/50 hover:border-[#009758]/30 transition-colors">
+              <Card className="h-full border-border/50 hover:border-primary/30 transition-colors">
                 <CardContent className="p-4 text-center">
-                  <feature.icon className="w-8 h-8 text-[#009758] mx-auto mb-3" />
+                  <feature.icon className="w-8 h-8 text-primary mx-auto mb-3" />
                   <h3 className="font-semibold mb-2 text-sm">
                     {feature.title}
                   </h3>

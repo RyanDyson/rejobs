@@ -12,7 +12,7 @@ import {
 import { NavMain } from "./nav-main";
 import Link from "next/link";
 import { DisplayText } from "./display-text";
-import { House, Briefcase, Receipt } from "lucide-react";
+import { House, Briefcase, Receipt, Gauge } from "lucide-react";
 import { UserButton } from "@clerk/nextjs";
 import { type user } from "@/server/db/schema";
 
@@ -21,8 +21,13 @@ type AppSidebarProps = { user: user } & React.ComponentProps<typeof Sidebar>;
 export function AppSidebar({ user, ...props }: AppSidebarProps) {
   const navItems = [
     {
+      title: "Dashboard",
+      url: "/dashboard",
+      icon: Gauge,
+    },
+    {
       title: "Rooms",
-      url: "./dashboard/room",
+      url: "/dashboard/room",
       icon: House,
     },
     {

@@ -26,15 +26,15 @@ export function NavMain({
         <SidebarMenu>
           {items.map((item) => (
             <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton
-                tooltip={item.title}
-                className="cursor-pointer data-[slot=sidebar-menu-button]:!p-1.5"
-              >
-                <Link href={item.url} className="flex items-center gap-2">
+              <Link href={item.url} className="flex items-center gap-2">
+                <SidebarMenuButton
+                  tooltip={item.title}
+                  className="cursor-pointer data-[slot=sidebar-menu-button]:!p-1.5"
+                >
                   {item.icon && <item.icon className="h-4 w-4" />}
                   <span>{item.title}</span>
-                </Link>
-              </SidebarMenuButton>
+                </SidebarMenuButton>
+              </Link>
             </SidebarMenuItem>
           ))}
         </SidebarMenu>

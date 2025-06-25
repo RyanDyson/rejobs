@@ -56,7 +56,7 @@ export function AnimatedOrbs() {
       {[...Array(5)].map((_, i) => (
         <motion.div
           key={i}
-          className="absolute w-4 h-4 rounded-full bg-[#009758] opacity-20"
+          className="absolute w-4 h-4 rounded-full bg-primary opacity-20"
           style={{
             top: `${20 + i * 15}%`,
             left: `${10 + i * 20}%`,

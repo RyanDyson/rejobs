@@ -9,6 +9,7 @@ import { HTTPException } from "hono/http-exception";
 import { PropsWithChildren, useState } from "react";
 import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
+import { TooltipProvider } from "@radix-ui/react-tooltip";
 
 export const Providers = ({ children }: PropsWithChildren) => {
   const [queryClient] = useState(
@@ -26,7 +27,9 @@ export const Providers = ({ children }: PropsWithChildren) => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ClerkProvider appearance={{ baseTheme: dark }}>{children}</ClerkProvider>
+      <ClerkProvider appearance={{ baseTheme: dark }}>
+        <TooltipProvider>{children}</TooltipProvider>
+      </ClerkProvider>
     </QueryClientProvider>
   );
 };
