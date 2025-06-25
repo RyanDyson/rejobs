@@ -87,7 +87,7 @@ export default function OverviewPage() {
   ];
 
   return (
-    <div className="p-6 space-y-4 w-full mx-auto">
+    <main className="p-6 space-y-4 w-full mx-auto">
       {/* Stats Cards */}
       <StatCards data={tempData} />
       {/* Easy Search Section */}
@@ -96,6 +96,6 @@ export default function OverviewPage() {
       <RecentList data={recentActivity} />
       {/* Timeline Chart */}
       <StatChart />
-    </div>
+    </main>
   );
 }
